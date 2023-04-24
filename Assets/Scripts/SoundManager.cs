@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour {
     public static SoundManager Instance { get; private set; }
     private void Awake() {
         Instance = this;
-        volume = Mathf.Round(PlayerPrefs.GetFloat(PLAYER_PREFS_SOUND_EFFECTS_VOLUME, 1f));
+        volume = PlayerPrefs.GetFloat(PLAYER_PREFS_SOUND_EFFECTS_VOLUME, 1f);
     }
 
     [SerializeField] private AudioClip[] meow;

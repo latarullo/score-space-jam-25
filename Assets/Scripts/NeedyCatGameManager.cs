@@ -7,6 +7,8 @@ public class NeedyCatGameManager : MonoBehaviour {
     public event EventHandler OnGameOver;
     public event EventHandler OnGamePaused;
     public event EventHandler OnGameUnpaused;
+    public event EventHandler OnScoreUpdate;
+
     public static NeedyCatGameManager Instance { get; private set; }
 
     private enum State {
@@ -18,8 +20,6 @@ public class NeedyCatGameManager : MonoBehaviour {
     private State state;
     private bool isPaused = false;
     private float survivalScore = 0;
-    private bool gameOver = false;
-    private System.Random random = new System.Random();
 
     private void Awake() {
         Instance = this;
@@ -28,6 +28,12 @@ public class NeedyCatGameManager : MonoBehaviour {
 
     private void Start() {
         GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+        NeedyCat.Instance.OnHoomanSpotted += NeedyCat_OnHoomanSpotted;
+    }
+
+    private void NeedyCat_OnHoomanSpotted(object sender, EventArgs e) {
+        GameUI.Instance.Hide();
+        this.state = State.GameOver;
     }
 
     private void GameInput_OnPauseAction(object sender, EventArgs e) {
@@ -39,10 +45,7 @@ public class NeedyCatGameManager : MonoBehaviour {
         switch (state) {
             case State.GamePlaying:
                 survivalScore += Time.deltaTime;
-                gameOver = random.Next(0, 100000) >= 99999;
-                if (gameOver) {
-                    state = State.GameOver;
-                }
+                OnScoreUpdate?.Invoke(this, EventArgs.Empty);
                 break;
             case State.GamePaused:
                 break;
@@ -68,6 +71,10 @@ public class NeedyCatGameManager : MonoBehaviour {
         return Convert.ToInt32(survivalScore);
     }
 
+    public float GetSurvivalScore() {
+        return survivalScore;
+    }
+
     public void PauseGame() {
         isPaused = !isPaused;
         if (isPaused) {
@@ -75,10 +82,12 @@ public class NeedyCatGameManager : MonoBehaviour {
             Time.timeScale = 0;
             previousState = state;
             state = State.GamePaused;
+            GameUI.Instance.Hide();
         } else {
             OnGameUnpaused?.Invoke(this, EventArgs.Empty);
             Time.timeScale = 1;
             state = previousState;
+            GameUI.Instance.Show();
         }
     }
 }

@@ -24,14 +24,9 @@ public class GameInput : MonoBehaviour {
 
         //Debug.Log(Vector3.Dot(needyCatForwardVector, hoomanForwardVector));
 
-        if (Input.GetKeyDown(KeyCode.P)) {
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) {
             Debug.Log("P - pressed - Pausing/Unpausing...");
             OnPauseAction?.Invoke(this, EventArgs.Empty);
-        }
-
-        if (Input.GetKeyDown(KeyCode.G)) {
-            Debug.Log("G - pressed - GameOver...");
-            OnGameOverAction?.Invoke(this, EventArgs.Empty);
         }
     }
 }

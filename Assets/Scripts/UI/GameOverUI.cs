@@ -36,6 +36,8 @@ public class GameOverUI : MonoBehaviour {
     public void Show() {
         this.gameObject.SetActive(true);
 
+        SoundManager.Instance.PlayPurSound(Camera.main.transform);
+
         int score = NeedyCatGameManager.Instance.GetScore();
         scoreText.text = score.ToString();
         StartCoroutine(leaderboard.SubmitScoreRoutine(score));

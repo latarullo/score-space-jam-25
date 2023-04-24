@@ -13,7 +13,7 @@ public class MusicManager : MonoBehaviour {
     private void Awake() {
         Instance = this;
         audioSource = GetComponent<AudioSource>();
-        volume = Mathf.Round(PlayerPrefs.GetFloat(PLAYER_PREFS_MUSIC_VOLUME, 0.3f));
+        volume = PlayerPrefs.GetFloat(PLAYER_PREFS_MUSIC_VOLUME, 0.3f);
         audioSource.volume = volume;
     }
 
