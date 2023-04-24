@@ -1,16 +1,41 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LeaderboardUI : MonoBehaviour {
+    public static LeaderboardUI Instance { get; private set; }
 
-    private GameObject caller;
+    [SerializeField] private Button closeButton;
 
-    public void Show(GameObject caller) {
-        this.caller = caller;
-        this.gameObject.SetActive(true);
+    [SerializeField] private Leaderboard leaderboard;
+
+    private Action onCloseButtonAction;
+
+    
+    private void Awake() {
+        Instance = this;
+
+        closeButton.onClick.AddListener(() => {
+            this.Hide();
+            onCloseButtonAction();
+        });
     }
+
+    
+    private void Start() {
+        this.Hide();
+    }
+
+    [Obsolete]
+    public void Show(Action onCloseButtonAction) {
+        this.onCloseButtonAction = onCloseButtonAction;
+        this.gameObject.SetActive(true);
+        StartCoroutine(leaderboard.FetchTopHighscoresRoutine());
+        closeButton.Select();
+    }
+
     public void Hide() {
-        this.caller.SetActive(true);
         this.gameObject.SetActive(false);
     }
 }

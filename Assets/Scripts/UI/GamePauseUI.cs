@@ -4,12 +4,14 @@ using UnityEngine.UI;
 public class GamePauseUI : MonoBehaviour {
 
     [SerializeField] private Button resumeButton;
-    [SerializeField] private Button mainMenuButton;
     [SerializeField] private Button optionsButton;
+    [SerializeField] private Button leaderboardButton;
+    [SerializeField] private Button mainMenuButton;
 
+    [System.Obsolete]
     private void Awake() {
         resumeButton.onClick.AddListener(() => {
-            //NeedyCatGameManager.Instance.PauseGame();
+            NeedyCatGameManager.Instance.PauseGame();
         });
 
         mainMenuButton.onClick.AddListener(() => {
@@ -18,14 +20,19 @@ public class GamePauseUI : MonoBehaviour {
 
         optionsButton.onClick.AddListener(() => {
             this.Hide();
-            //OptionsUI.Instance.Show(Show);
+            OptionsUI.Instance.Show(Show);
+        });
+
+        leaderboardButton.onClick.AddListener(() => {
+            this.Hide();
+            LeaderboardUI.Instance.Show(Show);
         });
     }
 
 
     private void Start() {
-        //NeedyCatGameManager.Instance.OnGamePaused += NeedyCatManager_OnGamePaused;
-        //NeedyCatGameManager.Instance.OnGameUnpaused += NeedyCatManager_OnGameUnpaused;
+        NeedyCatGameManager.Instance.OnGamePaused += NeedyCatGameManager_OnGamePaused;
+        NeedyCatGameManager.Instance.OnGameUnpaused += NeedyCatGameManager_OnGameUnpaused;
 
         this.Hide();
     }

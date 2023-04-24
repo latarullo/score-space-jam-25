@@ -13,14 +13,16 @@ public class MusicManager : MonoBehaviour {
     private void Awake() {
         Instance = this;
         audioSource = GetComponent<AudioSource>();
-        volume = PlayerPrefs.GetFloat(PLAYER_PREFS_MUSIC_VOLUME, volume);
+        volume = Mathf.Round(PlayerPrefs.GetFloat(PLAYER_PREFS_MUSIC_VOLUME, 0.3f));
         audioSource.volume = volume;
     }
 
     public void ChangeVolume() {
         volume += .1f;
-        if (volume > 1) {
+        if (volume > 1.1) {
             volume = 0;
+        } else if ( volume > 1) {
+            volume = 1;
         }
 
         audioSource.volume = volume;

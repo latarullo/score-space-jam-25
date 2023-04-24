@@ -1,7 +1,6 @@
 using UnityEngine;
 using LootLocker.Requests;
 using System.Collections;
-using UnityEditor;
 using TMPro;
 
 public class PlayerManager : MonoBehaviour {
@@ -28,7 +27,7 @@ public class PlayerManager : MonoBehaviour {
     [System.Obsolete]
     IEnumerator SetupRoutine() {
         yield return LoginRoutine();
-        yield return leaderboard.FetchTopHighscoresRoutine();
+        //yield return leaderboard.FetchTopHighscoresRoutine();
     }
 
     IEnumerator LoginRoutine() {

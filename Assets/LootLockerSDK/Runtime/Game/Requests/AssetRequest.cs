@@ -1,5 +1,5 @@
 ﻿//using Newtonsoft.Json;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;

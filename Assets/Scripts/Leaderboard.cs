@@ -36,6 +36,8 @@ public class Leaderboard : MonoBehaviour {
         
         LootLockerSDKManager.GetScoreListMain(leaderboardId, 10, 0, (response) => {
             if (response.success) {
+                Debug.Log("OK - HIGHSCORES...");
+
                 string tempPlayerNames = "";
                 string tempPlayerScores = "";
 

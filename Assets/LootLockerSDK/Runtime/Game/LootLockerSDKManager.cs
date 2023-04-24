@@ -4160,10 +4160,6 @@ namespace LootLocker.Requests
             LootLockerAPIManager.Ping(onComplete);
         }
 
-        public static void SubmitScore(string playerId, int score, int leaderboardId, string name) {
-            throw new NotImplementedException();
-        }
-
 
         #endregion
     }

@@ -106,22 +106,30 @@ public class SimpleSampleCharacterControl : MonoBehaviour
 
     private void Update()
     {
+        if (!NeedyCatGameManager.Instance.IsGamePlaying()) {
+            return;
+        }
+
         if (!m_jumpInput && Input.GetKey(KeyCode.Space))
         {
             m_jumpInput = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.E)) {
-            m_animator.SetTrigger("Pickup");
-        }
+        //if (Input.GetKeyDown(KeyCode.E)) {
+        //    m_animator.SetTrigger("Pickup");
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            m_animator.SetTrigger("Wave");
-        }
+        //if (Input.GetKeyDown(KeyCode.Q)) {
+        //    m_animator.SetTrigger("Wave");
+        //}
     }
 
     private void FixedUpdate()
     {
+        if (!NeedyCatGameManager.Instance.IsGamePlaying()) {
+            return;
+        }
+
         m_animator.SetBool("Grounded", m_isGrounded);
 
         switch (m_controlMode)

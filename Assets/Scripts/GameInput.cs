@@ -2,10 +2,17 @@ using System;
 using UnityEngine;
 
 public class GameInput : MonoBehaviour {
+    public static GameInput Instance { get; private set; }
+
+    public event EventHandler OnPauseAction;
+    public event EventHandler OnGameOverAction;
+
+    private void Awake() {
+        Instance = this;
+    }
 
     [SerializeField] private Transform needyCat;
     [SerializeField] private Transform hooman;
-    [SerializeField] private Leaderboard leaderboard;
 
     void Start() {
     }
@@ -17,8 +24,14 @@ public class GameInput : MonoBehaviour {
 
         //Debug.Log(Vector3.Dot(needyCatForwardVector, hoomanForwardVector));
 
-        if (Input.GetKeyDown(KeyCode.Z)) {
-            StartCoroutine(leaderboard.SubmitScoreRoutine(1000));
+        if (Input.GetKeyDown(KeyCode.P)) {
+            Debug.Log("P - pressed - Pausing/Unpausing...");
+            OnPauseAction?.Invoke(this, EventArgs.Empty);
+        }
+
+        if (Input.GetKeyDown(KeyCode.G)) {
+            Debug.Log("G - pressed - GameOver...");
+            OnGameOverAction?.Invoke(this, EventArgs.Empty);
         }
     }
 }
